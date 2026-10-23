@@ -34,4 +34,4 @@ RRF_K = 60            # Reciprocal Rank Fusion 常数
 # 生成参数
 TEMPERATURE = 0.2     # 低温度 → 答案更稳定、更贴合资料
 MAX_TOKENS = 512
-NUM_GPU = 0           # 0=纯CPU推理（8GB显存下CUDA分配不稳定时的兜底）；显存充足可改 -1(自动) 或层数
+NUM_GPU = -1          # -1=自动用GPU；0=纯CPU（GPU被占用/CUDA异常时兜底）

@@ -49,8 +49,12 @@ def main():
 
     ds = ds.map(lambda ex: tokenize_fn(ex, tokenizer), remove_columns=ds.column_names)
 
+    use_cuda = torch.cuda.is_available()
+    print(f"CUDA 可用: {use_cuda}（{'GPU' if use_cuda else 'CPU'} 训练）")
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME, torch_dtype=torch.float16, device_map="auto"
+        MODEL_NAME,
+        torch_dtype=torch.float16 if use_cuda else torch.float32,
+        device_map="auto" if use_cuda else None,
     )
 
     lora_config = LoraConfig(
@@ -71,7 +75,7 @@ def main():
         learning_rate=2e-4,
         logging_steps=5,
         save_strategy="epoch",
-        fp16=True,
+        fp16=use_cuda,
         report_to=[],
     )
 
