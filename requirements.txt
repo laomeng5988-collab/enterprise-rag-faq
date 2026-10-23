@@ -1,0 +1,15 @@
+# ==== 核心 RAG ====
+sentence-transformers>=2.7
+faiss-cpu>=1.8
+rank-bm25>=0.2.2
+jieba>=0.42
+numpy>=1.26
+fastapi>=0.111
+uvicorn>=0.30
+ollama>=0.3
+
+# ==== 微调（LoRA，需 NVIDIA GPU，FP16 全精度微调无需 bitsandbytes）====
+peft>=0.12
+transformers>=4.44
+accelerate>=0.33
+datasets>=2.20

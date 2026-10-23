@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# 本地生成的索引 / 数据
+data/index/
+*.faiss
+*.bin
+
+# 模型权重（本地缓存，不上传）
+models/
+*.pt
+*.safetensors
+.cache/
+huggingface/
+
+# 微调输出
+finetune/output/
+finetune/lora-*/
+
+# IDE
+.vscode/
+.idea/
+
+# 日志
+*.log
