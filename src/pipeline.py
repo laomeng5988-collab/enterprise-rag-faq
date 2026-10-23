@@ -27,6 +27,7 @@ class RAGPipeline:
             base_url=config.LLM_BASE_URL,
             temperature=config.TEMPERATURE,
             max_tokens=config.MAX_TOKENS,
+            num_gpu=config.NUM_GPU,
         )
 
     def query(self, question, top_k=None):
