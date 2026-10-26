@@ -73,10 +73,27 @@ uvicorn src.api:app --host 0.0.0.0 --port 8000
 
 ```bash
 python finetune/train_lora.py   # 对 Qwen2.5-1.5B 做 LoRA SFT（需 NVIDIA GPU）
+python finetune/test_lora.py    # 微调前后对比推理测试
 ```
 
 - 微调数据：`finetune/sft_data.json`（30 条 FAQ 指令对）
 - 技术：PEFT LoRA（r=16），FP16 全精度微调，无需 bitsandbytes
+
+### 微调结果
+
+| 指标 | 数值 |
+|---|---|
+| 基座模型 | Qwen2.5-1.5B-Instruct |
+| 训练数据 | 30 条 FAQ 指令对，3 epoch |
+| 可训练参数 | 18.5M（占全量 1.18%）|
+| Loss | 2.844 → 1.373 |
+| 训练时长 | 26.5 秒（RTX 4070 GPU）|
+
+**微调前后对比**：
+- 基础模型：对产品定价等事实性问题倾向「拒答」或给出通用回答
+- 微调后：能直接给出 FAQ 风格的简洁答案
+
+**诚实说明**：30 条小样本下，微调模型对具体数值（价格、人数）仍可能出错。这正是 **RAG 与 SFT 的分工**——RAG 通过检索注入真实文档来保证「事实准确」，微调更适合学习「回答风格」而非「记忆事实」。两者互补，本项目同时实现，以对比验证这一边界。
 
 ## 目录结构
 
